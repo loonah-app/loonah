@@ -1,101 +1,67 @@
-import Image from "next/image";
 
-export default function Home() {
+import { getServerSession } from "next-auth";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import SigninButton from "@/components/SigninButton";
+import { authOptions } from "./api/auth/[...nextauth]/route";
+
+export default async function Home() {
+
+  const session = await getServerSession(authOptions);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="flex justify-center h-lvh items-center">
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <div className="xx-[100px] py-20 -mt-[200px] relative z-10">
+
+        <div className="w-full">
+
+          <div className="font-extrabold text-6xl md:text-8xl mb-3 text-center">Loonah</div>
+
+          <div className="flex justify-center mb-5">
+            <div className="font-light text-md text-center">{`With Loonah, you're not just deploying a website; you're launching a mission.`}</div>
+          </div>
+
+          <center>
+            <div className="flex justify-center w-full md:w-[400px] mb-[30px]">
+              <div className="text-xs px-[20px]">
+                {
+                  `Our user-friendly interface makes it easy to connect your GitHub repository, build your site, and deploy it to the decentralized web.
+                  with our subdomain, your site will have a unique cosmic address that's easy to remember. Loonah is built on `
+                }
+                <Link href={'https://www.walrus.xyz/'} className="text-sky-600 dark:text-sky-200" target="_blank">walrus</Link>
+              </div>
+            </div>
+
+            <div className="pb-[0px] md:pb-[100px]">
+              {
+                session ?
+                  <Link href={'/app/projects'} className="px-4 py-2.5 border">
+                    Launch app
+                  </Link> :
+                  <SigninButton />
+              }
+            </div>
+          </center>
+
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+      </div>
+
+      <div className="fixed bottom-[-330px] sm:bottom-[-350px] md:bottom-[-40%] md:right-[10%] z-0">
+        {
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={'/assets/space-ranger.png'} alt="space-ranger" className="w-[500px]" />
+        }
+      </div>
+
+      {/* <div className="fixed bottom-[-330px] sm:bottom-[-350px] md:bottom-[-100px]">
+        {
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={'/assets/planet.png'} alt="space-ranger" className="w-[700px]" />
+        }
+      </div> */}
+
     </div>
   );
 }
