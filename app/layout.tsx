@@ -4,8 +4,8 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Providers from "@/utils/providers";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
 import { Toaster } from "@/_components/ui/toaster";
+import { authOptions } from "@/utils/authOptions";
 
 const lexend = Poppins({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],

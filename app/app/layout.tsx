@@ -2,9 +2,9 @@ import DesktopMenuButton from '@/components/DesktopMenuButton';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import React from 'react'
-import { authOptions } from '../api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
 import { MobileMenuButton } from '@/components/MobileMenuButton';
+import { authOptions } from '@/utils/authOptions';
 
 async function Layout({
   children,

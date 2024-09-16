@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import SigninButton from "@/components/SigninButton";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { authOptions } from "@/utils/authOptions";
 
 export default async function Home() {
 

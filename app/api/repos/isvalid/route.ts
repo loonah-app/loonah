@@ -1,8 +1,8 @@
 import { Octokit } from "@octokit/rest";
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from "../../auth/[...nextauth]/route";
 import Project from "@/db/models/Project";
 import { connectToDB } from "@/db/connection";
+import { authOptions } from "@/utils/authOptions";
 
 export async function POST(request: Request) {
   const { repoOwner, repoName } = await request.json();

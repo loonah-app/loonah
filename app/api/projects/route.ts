@@ -1,10 +1,10 @@
 
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from "../auth/[...nextauth]/route";
 import Project from '@/db/models/Project';
 import { connectToDB } from '@/db/connection';
 import amqp from 'amqplib';
 import { Octokit } from '@octokit/rest';
+import { authOptions } from '@/utils/authOptions';
 
 const RABBITMQ_URL = process.env.NEXT_PUBLIC_RABBITMQ_URL || 'amqp://localhost';
 const QUEUE_NAME = process.env.NEXT_PUBLIC_QUEUE_NAME || 'walrus_publishing';
