@@ -213,7 +213,7 @@ function ProjectDetailsClient({ params: { id: projectId } }: { params: { id: str
                                 <CardContent>
                                     <div className='pt-8 pb-3'>
                                         <div className='flex items-center gap-3 md:gap-10 justify-between'>
-                                            <div className='text-sm text-foreground/70'>To update your Production Deployment, push to the "master" branch. and click the update button</div>
+                                            <div className='text-sm text-foreground/70'>To update your Production Deployment, push to the &quot;master&quot; branch. and click the update button</div>
                                             <Button size={'sm'} disabled={isUpdateButtonDisabled()} onClick={() => updateProject()}>
                                                 {
                                                     !isUpdatingData ?
