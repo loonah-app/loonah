@@ -41,7 +41,8 @@ export async function POST(request: Request) {
   try {
 
     const _projectType = await projectType(repoOwner, repoName, session.accessToken!);
-    console.log(_projectType);
+    const _defaultBranch =  await projectDefaultBranch(repoOwner, repoName, session.accessToken!);
+    console.log({_projectType, _defaultBranch});
 
     const _repo = `https://github.com/${repoOwner}/${repoName}`;
 
@@ -63,7 +64,7 @@ export async function POST(request: Request) {
     const message = {
       projectId: newProject._id.toString(),
       accessToken: session.accessToken,
-      branch: "master",
+      branch: _defaultBranch || "master",
       projectType: _projectType
     };
 
@@ -90,7 +91,8 @@ export async function PUT(request: Request) {
   try {
 
     const _projectType = await projectType(repoOwner, repoName, session.accessToken!);
-    console.log(_projectType);
+    const _defaultBranch =  await projectDefaultBranch(repoOwner, repoName, session.accessToken!);
+    console.log({_projectType, _defaultBranch});
 
     const _repo = `https://github.com/${repoOwner}/${repoName}`;
 
@@ -106,7 +108,7 @@ export async function PUT(request: Request) {
     const message = {
       projectId: updateProject._id.toString(),
       accessToken: session.accessToken,
-      branch: "master",
+      branch: _defaultBranch || "master",
       projectType: _projectType,
       updateObjectId: updateProject.storageObjectId
     };
@@ -140,6 +142,22 @@ async function sendToRabbitMQ(message: object) {
   } catch (error) {
     console.error('Error sending message to RabbitMQ:', error);
     throw new Error('Failed to send message to RabbitMQ');
+  }
+}
+
+async function projectDefaultBranch(repoOwner: string, repoName: string, accessToken: string) {
+  try {
+    const octokit = new Octokit({ auth: accessToken });
+    // Fetch the repository contents
+    const { data } = await octokit.repos.get({
+      owner: repoOwner,
+      repo: repoName,
+      path: '', // Root directory
+    });
+
+    return data.default_branch;
+  } catch (error) {
+    throw new Error("Failed to get repository default branch name");
   }
 }
 
